@@ -101,6 +101,7 @@ public class Main {
         }
     }
 
+    // Get database connection
     protected static Connection getConnection() {
         Connection connection = null;
         try {
@@ -112,6 +113,7 @@ public class Main {
         return connection;
     }
 
+    // Saves the output in a csv file
     protected static void saveToCSV(List<String> includedStudents, int minCredit, String startDateTime,
                                     String endDateTime, String filePath) {
         try (Connection connection = getConnection();
@@ -120,6 +122,7 @@ public class Main {
             statement.setString(2, endDateTime);
             statement.setInt(3, minCredit);
 
+            // Execute query with the parameters above and get columns
             ResultSet resultSet = statement.executeQuery();
 
             try (PrintWriter writer = new PrintWriter(filePath)) {
@@ -145,6 +148,7 @@ public class Main {
             }
         } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println("An error occurred either when connecting to the database or while writing the file");
         }
     }
 
@@ -156,6 +160,7 @@ public class Main {
             statement.setString(2, endDateTime);
             statement.setInt(3, minCredit);
 
+            // Execute query with the parameters above and get columns
             ResultSet resultSet = statement.executeQuery();
 
             // Writing to HTML
@@ -199,6 +204,7 @@ public class Main {
             }
         } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println("An error occurred either when connecting to the database or while writing the html file");
         }
     }
 }
